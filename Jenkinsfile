@@ -4,7 +4,9 @@ node {
     checkout scm
   }
 
-  docker.image('awscli').inside {
+  def awscli = docker.image('awscli')
+
+  awscli.inside {
     stage("Connect to AWS") {
       sh "ecs-cli configure --region us-west-2 --access-key ${AWS_ACCESS_KEY_ID} --secret-key ${AWS_SECRET_ACCESS_KEY} --cluster myblog-cluster"
     }
